@@ -1,38 +1,99 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Press+Start+2P&display=swap');
+
+:root{
+  --color1: #bae8e8;
+  --color2: #7fe8e8;
+  --border-radius: 10px;
+}
+
+.container {
+  /* border: 1px solid green; */
+  max-width: 756px;
+  margin: auto;
+  padding: .8em;
+}
+
+/* Header Styles */
+header{
+  background-color: black;
+  padding: 0.8em 1em
+}
+
+header h1{
   text-align: center;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5em;
+  /* font-family: 'Bebas Neue', cursive; */
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Main Section styling */
+.app{
+  margin-top: 25px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* Form Stylings */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input-field{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-top: 10px;
+}
+
+input, select{
+  font-size: 0.9em;
+  padding: 0.8em 0.6em;
+  outline: none;
+  border: 1px solid rgb(203, 203, 203);
+  border-radius: 4px;
+}
+
+input:focus, select:focus{
+  border: 1px solid var(--color2);
+}
+
+select {
+  background-color: transparent;
+  font-family: inherit;
+}
+
+input[type="submit"] {
+  font-size: 1em;
+  background-color: var(--color1);
+}
+
+/* Table Styling */
+
+.table{
+  margin-top: 3em;
+  overflow: auto;
+}
+
+.table-header, .table-record{
+  min-width: 470px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-header div, .table-record div{
+  /* border: 1px solid palevioletred; */
+  text-align: center;
+  flex: 1 0 0;
+  padding: 0.5em 0.4em;
+  border: 1px solid goldenrod;
+}
+
+.table-header{
+  background-color: goldenrod;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.table-record{
+  background-color: lemonchiffon;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.table-header div{
+  font-weight: bold;
 }
+
