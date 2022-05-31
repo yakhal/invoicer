@@ -1,0 +1,33 @@
+/* Table Styling */
+
+.table{
+  margin-top: 3em;
+  overflow: auto;
+}
+
+.table-header, .table-record{
+  min-width: 470px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-header div, .table-record div{
+  /* border: 1px solid palevioletred; */
+  text-align: center;
+  flex: 1 0 0;
+  padding: 0.5em 0.4em;
+  border: 1px solid goldenrod;
+}
+
+.table-header{
+  background-color: goldenrod;
+  color: white;
+}
+
+.table-record{
+  background-color: lemonchiffon;
+}
+
+.table-header div{
+  font-weight: bold;
+}

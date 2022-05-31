@@ -1,7 +1,9 @@
+import styles from "./Table.module.css";
+
 const Record = (props) => {
     const record = props.record;
     return (
-        <div className='table-record'>
+        <div className={styles['table-record']}>
             <div>{record.invoiceId}</div>
             <div>{record.invoiceDate}</div>
             <div>{record.unitPrice}</div>
