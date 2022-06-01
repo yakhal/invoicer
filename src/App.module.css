@@ -13,18 +13,7 @@
   padding: .8em;
 }
 
-/* Header Styles */
-header{
-  background-color: black;
-  padding: 0.8em 1em
-}
-
-header h1{
-  text-align: center;
-  color: white;
-  font-family: 'Press Start 2P', cursive;
-  font-size: 1.5em;
-}
+/* Create Invoice Button  */
 
 .create-invoice-container{
   text-align: center;
@@ -47,36 +36,6 @@ header h1{
 }
 
 /* Main Section styling */
-.app{
+.app-main{
   margin-top: 25px;
-}
-
-/* Form Stylings */
-
-.input-field{
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
-input, select{
-  font-size: 0.9em;
-  padding: 0.8em 0.6em;
-  outline: none;
-  border: 1px solid rgb(203, 203, 203);
-  border-radius: 4px;
-}
-
-input:focus, select:focus{
-  border: 1px solid var(--color2);
-}
-
-select {
-  background-color: transparent;
-  font-family: inherit;
-}
-
-input[type="submit"] {
-  font-size: 1em;
-  background-color: var(--color1);
 }

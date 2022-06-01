@@ -1,4 +1,4 @@
-import Record from "./Record";
+import TableRecord from "./TableRecord";
 import styles from "./Table.module.css";
 
 const Table = (props) => {
@@ -14,7 +14,7 @@ const Table = (props) => {
                 <div>Status</div>
             </div>
             {data.map((record) => {
-                return <Record key={record.invoiceId} record={record} />
+                return <TableRecord key={record.invoiceId} record={record} />
             })}
         </div>
     )
