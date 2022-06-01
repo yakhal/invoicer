@@ -1,0 +1,29 @@
+/* Form Stylings */
+
+.input-field{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.input-field input, .input-field select{
+  font-size: 0.9em;
+  padding: 0.8em 0.6em;
+  outline: none;
+  border: 1px solid rgb(203, 203, 203);
+  border-radius: 4px;
+}
+
+.input-field input:focus, .input-field select:focus{
+  border: 1px solid var(--color2);
+}
+
+.input-field select {
+  background-color: transparent;
+  font-family: inherit;
+}
+
+.input-field input[type="submit"] {
+  font-size: 1em;
+  background-color: var(--color1);
+}

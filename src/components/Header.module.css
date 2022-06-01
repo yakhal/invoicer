@@ -1,0 +1,12 @@
+/* Header Styles */
+.app-header{
+  background-color: black;
+  padding: 0.8em 1em
+}
+
+.app-header h1{
+  text-align: center;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.5em;
+}

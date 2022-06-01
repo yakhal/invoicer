@@ -1,8 +1,9 @@
-import Table from './Table';
-import './App.css';
+import Table from './components/Table';
 import { useState } from 'react';
-import Modal from './Modal';
-import Form from './Form';
+import Modal from './components/Modal';
+import Form from './components/Form';
+import Header from './components/Header';
+import styles from './App.module.css';
 
 const data = [
   {
@@ -33,7 +34,7 @@ const data = [
 
 function App() {
   // State variables
-  
+
   const [isOpen, setIsOpen] = useState(false);
 
   const getData = (formData) => {
@@ -46,12 +47,13 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1>Invoicer</h1>
-      </header>
-      <main className="container app">
-        <div className='create-invoice-container'>
-          <button className='create-invoice-button' onClick={handleClose}>Create New Invoice</button>
+      <Header />
+      <main className={`${styles.container} ${styles["app-main"]}`}>
+        <div className={styles['create-invoice-container']}>
+          <button className={styles['create-invoice-button']}
+            onClick={handleClose}>
+            Create New Invoice
+          </button>
         </div>
         {isOpen
           &&

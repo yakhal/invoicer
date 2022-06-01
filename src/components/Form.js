@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./Form.module.css";
 
 const Form = props => {
     // State Variables
@@ -60,7 +61,7 @@ const Form = props => {
 
     return (
         <form className='invoice-form' onSubmit={handleOnSubmit}>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <label htmlFor="invoice-date">Invoice Date</label>
                 <input
                     onChange={(e) => handleOnChange("invoiceDate", e.target.value)}
@@ -70,7 +71,7 @@ const Form = props => {
                     required
                 />
             </div>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <label htmlFor="unit-price">Unit Price</label>
                 <input
                     onChange={(e) => handleOnChange("unitPrice", e.target.value)}
@@ -81,7 +82,7 @@ const Form = props => {
                     required
                 />
             </div>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <label htmlFor="quantity">Quantity</label>
                 <input
                     onChange={(e) => handleOnChange("quantity", e.target.value)}
@@ -91,7 +92,7 @@ const Form = props => {
                     required
                 />
             </div>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <label htmlFor="total-amount">Total amount</label>
                 <input
                     readOnly
@@ -100,7 +101,7 @@ const Form = props => {
                     type="number"
                 />
             </div>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <label htmlFor="status">Status</label>
                 <select
                     onChange={(e) => handleOnChange("status", e.target.value)}
@@ -112,7 +113,7 @@ const Form = props => {
                     <option value="Paid">Paid</option>
                 </select>
             </div>
-            <div className='input-field'>
+            <div className={styles['input-field']}>
                 <input type="submit" />
             </div>
         </form>

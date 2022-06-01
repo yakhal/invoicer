@@ -1,6 +1,6 @@
 import styles from "./Table.module.css";
 
-const Record = (props) => {
+const TableRecord = (props) => {
     const record = props.record;
     return (
         <div className={styles['table-record']}>
@@ -14,4 +14,4 @@ const Record = (props) => {
     )
 }
 
-export default Record;
+export default TableRecord;
