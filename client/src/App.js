@@ -1,5 +1,5 @@
 import Table from './components/Table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './components/Modal';
 import Form from './components/Form';
 import Header from './components/Header';
@@ -45,6 +45,14 @@ function App() {
     setIsOpen(!isOpen);
   }
 
+  const [serverMessage, setServerMessage] = useState(null);
+
+  useEffect(() => {
+    fetch("/api")
+      .then((res) => res.json())
+      .then((data) => setServerMessage(data.message));
+  }, []);
+
   return (
     <>
       <Header />
@@ -54,6 +62,7 @@ function App() {
             onClick={handleClose}>
             Create New Invoice
           </button>
+          <p>{!data ? "Loading..." : serverMessage}</p>
         </div>
         {isOpen
           &&
