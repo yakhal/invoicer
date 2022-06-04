@@ -4,7 +4,11 @@
   "description": "### Want to collaborate? Follow these Instructions : 1. Clone the repository to your local machine. 2. Open terminal and cd to invoicer directory. 3. Run \"npm install\". This command will install node modules. 4. Run \"npm start\". This command will launch the app locally in your browser.",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "node": "16.15.0"
   },
   "repository": {
     "type": "git",
