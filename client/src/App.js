@@ -5,52 +5,30 @@ import Form from './components/Form';
 import Header from './components/Header';
 import styles from './App.module.css';
 
-const data = [
-  {
-    invoiceId: "0001",
-    invoiceDate: "28th May 2022",
-    unitPrice: 100,
-    quantity: 10,
-    totalAmount: 1000,
-    status: "Pending"
-  },
-  {
-    invoiceId: "0002",
-    invoiceDate: "28th May 2022",
-    unitPrice: 50,
-    quantity: 10,
-    totalAmount: 500,
-    status: "Pending"
-  },
-  {
-    invoiceId: "0003",
-    invoiceDate: "28th May 2022",
-    unitPrice: 10,
-    quantity: 99,
-    totalAmount: 990,
-    status: "Pending"
-  }
-]
-
 function App() {
   // State variables
-
+  // For Modal
   const [isOpen, setIsOpen] = useState(false);
-
-  const getData = (formData) => {
-    data.push(formData)
-  }
-
   const handleClose = () => {
     setIsOpen(!isOpen);
   }
 
-  const [serverMessage, setServerMessage] = useState(null);
+  // For Table Data 
+  const [data, setData] = useState([]);
+  // To add more records in Table
+  const getData = (formData) => {
+    data.push(formData)
+  }
 
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/data")
       .then((res) => res.json())
-      .then((data) => setServerMessage(data.message));
+      .then((data) => {
+        console.log(data);
+        setData(data.records)
+      })
+      .catch((err) =>
+        console.log(err));
   }, []);
 
   return (
@@ -62,7 +40,6 @@ function App() {
             onClick={handleClose}>
             Create New Invoice
           </button>
-          <p>{!data ? "Loading..." : serverMessage}</p>
         </div>
         {isOpen
           &&

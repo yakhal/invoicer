@@ -13,9 +13,14 @@ const Table = (props) => {
                 <div>Total Amount</div>
                 <div>Status</div>
             </div>
-            {data.map((record) => {
-                return <TableRecord key={record.invoiceId} record={record} />
-            })}
+            {data.length > 0
+                ?
+                data.map((record) => {
+                    return <TableRecord key={record.invoiceId} record={record} />
+                })
+                :
+                <TableRecord/>
+            }
         </div>
     )
 }
