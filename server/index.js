@@ -1,6 +1,8 @@
 const express = require("express");
 const { header } = require("express/lib/request");
 const PORT = process.env.PORT || 3001;
+const bodyParser = require("body-parser");
+const cors = require('cors');
 const path = require("path");
 const app = express();
 
@@ -32,6 +34,10 @@ const sample_data = [
     }
 ]
 
+
+app.use(cors());
+// Parses Body in Request
+app.use(bodyParser.json());
 // This helps the serve static files from NodeJS
 app.use(express.static(path.resolve(__dirname, "../client/build")))
 
@@ -44,6 +50,12 @@ app.get("/api/data", (req, res) => {
     res.json({
         records: sample_data
     })
+})
+
+app.post("/api/send", (req, res) => {
+    console.log(`Processing Record : ${req.body.formData.invoiceId}`)
+    sample_data.push(req.body.formData);
+    res.sendStatus(200);
 })
 
 // Redirect bogus endpoints to Invoice React app 

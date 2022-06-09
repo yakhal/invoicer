@@ -1,5 +1,6 @@
-import { useState } from "react";
+import {useState } from "react";
 import styles from "./Form.module.css";
+import axios from "axios";
 
 const Form = props => {
     // State Variables
@@ -55,6 +56,13 @@ const Form = props => {
             quantity: "",
             totalAmount: "",
             status: "Pending"
+        })
+        // Sending Data to Backend
+        axios.post("/api/send", {formData: inputData})
+        .then((res) => {
+            console.log(`Data recieved, Status:${res.status}`);
+        }).catch((err) => {
+            console.log(err);
         })
         props.closeForm();
     }
