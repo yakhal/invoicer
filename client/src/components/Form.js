@@ -60,7 +60,7 @@ const Form = props => {
         // Sending Data to Backend
         axios.post("/api/send", {formData: inputData})
         .then((res) => {
-            console.log(`Data recieved, Status:${res.status}`);
+            console.log(`Status:${res.status}, ${res.data}`);
         }).catch((err) => {
             console.log(err);
         })

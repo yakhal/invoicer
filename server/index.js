@@ -1,42 +1,37 @@
+require("dotenv").config();
 const express = require("express");
 const { header } = require("express/lib/request");
 const PORT = process.env.PORT || 3001;
 const bodyParser = require("body-parser");
 const cors = require('cors');
 const path = require("path");
+const mongoose = require("mongoose");
 const app = express();
 
-// Sample Data
-const sample_data = [
+// Connecting Database
+mongoose.connect(
+    process.env.MONGODB_URI,
     {
-        invoiceId: "0001",
-        invoiceDate: "28th May 2022",
-        unitPrice: 100,
-        quantity: 10,
-        totalAmount: 1000,
-        status: "Pending"
-    },
-    {
-        invoiceId: "0002",
-        invoiceDate: "28th May 2022",
-        unitPrice: 50,
-        quantity: 10,
-        totalAmount: 500,
-        status: "Pending"
-    },
-    {
-        invoiceId: "0003",
-        invoiceDate: "28th May 2022",
-        unitPrice: 10,
-        quantity: 99,
-        totalAmount: 990,
-        status: "Pending"
+        useNewUrlParser: true,
+        useUnifiedTopology: true
     }
-]
+)
+    .then(() => console.log("MongoDB Connection Established"));
 
+// Defining MongoDB Schema
+const invoiceSchema = new mongoose.Schema({
+    invoiceId: Number,
+    invoiceDate: String,
+    unitPrice: Number,
+    quantity: Number,
+    totalAmount: Number,
+    status: String
+})
+
+const InvoiceData = new mongoose.model("InvoiceData", invoiceSchema);
 
 app.use(cors());
-// Parses Body in Request
+// Parses Body in Request Header
 app.use(bodyParser.json());
 // This helps the serve static files from NodeJS
 app.use(express.static(path.resolve(__dirname, "../client/build")))
@@ -47,15 +42,26 @@ app.get("/api", (req, res) => {
 })
 
 app.get("/api/data", (req, res) => {
-    res.json({
-        records: sample_data
+    InvoiceData.find({}, (err, result) => {
+        if (!err) {
+            res.send({ records: result });
+        } else {
+            console.log(err);
+        }
     })
 })
 
 app.post("/api/send", (req, res) => {
     console.log(`Processing Record : ${req.body.formData.invoiceId}`)
-    sample_data.push(req.body.formData);
-    res.sendStatus(200);
+    // Creating and Saving Invoice
+    const newInvoice = new InvoiceData(req.body.formData);
+    newInvoice
+        .save()
+        .then(() => {
+            console.log(`Saved Record : ${req.body.formData.invoiceId}\n`)
+            res.send("Data insert successful");
+        })
+        .catch((err) => console.log(err));
 })
 
 // Redirect bogus endpoints to Invoice React app 
