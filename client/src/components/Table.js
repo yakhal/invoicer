@@ -16,7 +16,7 @@ const Table = (props) => {
             {data.length > 0
                 ?
                 data.map((record) => {
-                    return <TableRecord key={record.invoiceId} record={record} />
+                    return <TableRecord key={record._id} record={record} />
                 })
                 :
                 <TableRecord/>

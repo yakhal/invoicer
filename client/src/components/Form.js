@@ -1,11 +1,10 @@
-import {useState } from "react";
+import { useState } from "react";
 import styles from "./Form.module.css";
 import axios from "axios";
 
 const Form = props => {
     // State Variables
     const [inputData, setInputData] = useState({
-        invoiceId: Math.floor(Math.random() * 100000),
         invoiceDate: "",
         unitPrice: "",
         quantity: "",
@@ -16,7 +15,7 @@ const Form = props => {
     // utility Function
     const formatDate = (date) => {
         return new Date(date).toISOString().split('T')[0];
-      }
+    }
 
     // Event Handler Functions
     const handleOnChange = (field, value) => {
@@ -46,23 +45,28 @@ const Form = props => {
         }
     }
 
+    const sendDataToServer = async (formData, sendData) => {
+        try {
+            let res = await axios.post("/api/send", { formData: formData });
+            if (res.status === 200) {
+                console.log(`Record ID : ${res.data._id.slice(18)} created`)
+                sendData(res.data)
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        props.sendData(inputData);
+        sendDataToServer(inputData, props.sendData)
         setInputData({
-            invoiceId: Math.floor(Math.random() * 1000),
             invoiceDate: "",
             unitPrice: "",
             quantity: "",
             totalAmount: "",
             status: "Pending"
-        })
-        // Sending Data to Backend
-        axios.post("/api/send", {formData: inputData})
-        .then((res) => {
-            console.log(`Status:${res.status}, ${res.data}`);
-        }).catch((err) => {
-            console.log(err);
         })
         props.closeForm();
     }

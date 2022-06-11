@@ -1,5 +1,5 @@
 import Table from './components/Table';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import Modal from './components/Modal';
 import Form from './components/Form';
 import Header from './components/Header';
@@ -8,16 +8,13 @@ import styles from './App.module.css';
 function App() {
   // State variables
   // For Modal
-  const [isOpen, setIsOpen] = useState(false);
-  const handleClose = () => {
-    setIsOpen(!isOpen);
-  }
+  const [isOpen, handleClose] = useReducer((isOpen) => (!isOpen), false);
 
   // For Table Data 
   const [data, setData] = useState([]);
   // To add more records in Table
   const getData = (formData) => {
-    data.push(formData)
+    setData([...data, formData]);
   }
 
   useEffect(() => {

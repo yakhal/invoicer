@@ -9,7 +9,7 @@ const TableRecord = (props) => {
                 record
                     ?
                     <>
-                        <div>{record.invoiceId}</div>
+                        <div>{record._id.slice(18)}</div>
                         <div>{record.invoiceDate}</div>
                         <div>{record.unitPrice}</div>
                         <div>{record.quantity}</div>
