@@ -1,4 +1,4 @@
-# [Invoicer](https://invoicer-app.netlify.app)
+# [Invoicer](https://invoicer-application.herokuapp.com/)
 ## Simple Invoice App.
 
 ### Want to collaborate?
