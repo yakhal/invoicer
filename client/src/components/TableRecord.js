@@ -1,9 +1,24 @@
 import styles from "./Table.module.css";
+import axios from "axios";
+import { MdDeleteOutline } from 'react-icons/md';
 
 const TableRecord = (props) => {
     const record = props.record;
-    return (
 
+    const deleteRecord = async (invoiceId, syncFrontend) => {
+        try {
+            let res = await axios.get(`/api/delete/${invoiceId}`);
+            if (res.status === 200) {
+                console.log(res.data.message)
+                syncFrontend(invoiceId)
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
+    return (
         <div className={styles['table-record']} >
             {
                 record
@@ -15,6 +30,14 @@ const TableRecord = (props) => {
                         <div>{record.quantity}</div>
                         <div>{record.totalAmount}</div>
                         <div>{record.status}</div>
+                        <div>
+                            <button
+                                onClick={() => deleteRecord(record._id, props.deleteInvoice)}
+                                className={styles["action-button"]}
+                            >
+                                <MdDeleteOutline size="1.5em" />
+                            </button>
+                        </div>
                     </>
                     :
                     <div>No Data Exist!</div>

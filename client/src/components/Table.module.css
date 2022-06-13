@@ -31,3 +31,13 @@
 .table-header div{
   font-weight: bold;
 }
+
+.action-button {
+  background: transparent;
+  border: none;
+  transition: 0.2s;
+}
+
+.action-button:hover {
+  transform: scale(1.2);
+}

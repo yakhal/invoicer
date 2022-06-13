@@ -40,6 +40,7 @@ app.get("/api", (req, res) => {
     res.json({ message: "Server is connected!" });
 })
 
+// Get All records from MongoDB
 app.get("/api/data", (req, res) => {
     InvoiceData.find({}, (err, result) => {
         if (!err) {
@@ -50,15 +51,29 @@ app.get("/api/data", (req, res) => {
     })
 })
 
+// Create Invoice
 app.post("/api/send", (req, res) => {
-    console.log(`Processing Record`);
+    console.log(`Processing Invoice`);
     // Creating and Saving Invoice
     const newInvoice = new InvoiceData(req.body.formData);
     newInvoice
         .save()
         .then(() => {
-            console.log(`Record with ID : ${newInvoice._id} saved successfully!\n`)
-            res.json(newInvoice);
+            const msg = `Invoice with ID : ${newInvoice._id} created!`;
+            console.log(`${msg}\n`)
+            res.json({newInvoice: newInvoice, message: msg});
+        })
+        .catch((err) => console.log(err));
+})
+
+// Delete Invoice
+app.get("/api/delete/:invoiceId", (req, res) => {
+    const invoiceId = req.params.invoiceId;
+    InvoiceData.deleteOne({ _id: invoiceId })
+        .then(() => {
+            const msg = `Invoice ID : ${invoiceId} deletion successful`;
+            console.log(msg + "\n");
+            res.json({message: msg, deleted: true});
         })
         .catch((err) => console.log(err));
 })
