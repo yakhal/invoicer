@@ -12,11 +12,12 @@ const Table = (props) => {
                 <div>Quantity</div>
                 <div>Total Amount</div>
                 <div>Status</div>
+                <div>Actions</div>
             </div>
             {data.length > 0
                 ?
                 data.map((record) => {
-                    return <TableRecord key={record._id} record={record} />
+                    return <TableRecord deleteInvoice={props.deleteInvoice} key={record._id} record={record} />
                 })
                 :
                 <TableRecord/>

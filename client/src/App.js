@@ -17,6 +17,18 @@ function App() {
     setData([...data, formData]);
   }
 
+  const deleteInvoice = (invoiceId) => {
+    const updatedData = [];
+    for(let record of data){
+      if (record._id === invoiceId){
+        continue;
+      } else {
+        updatedData.push(record);
+      }
+    }
+    setData(updatedData);
+  }
+
   useEffect(() => {
     fetch("/api/data")
       .then((res) => res.json())
@@ -44,7 +56,7 @@ function App() {
             <Form closeForm={handleClose} sendData={getData} />
           </Modal>
         }
-        <Table data={data} />
+        <Table data={data} deleteInvoice={deleteInvoice}/>
       </main>
     </>
   );

@@ -45,12 +45,12 @@ const Form = props => {
         }
     }
 
-    const sendDataToServer = async (formData, sendData) => {
+    const sendDataToServer = async (formData, syncFrontend) => {
         try {
             let res = await axios.post("/api/send", { formData: formData });
             if (res.status === 200) {
-                console.log(`Record ID : ${res.data._id.slice(18)} created`)
-                sendData(res.data)
+                console.log(res.data.message);
+                syncFrontend(res.data.newInvoice);
             }
         }
         catch (err) {
