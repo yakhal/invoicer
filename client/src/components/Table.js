@@ -17,10 +17,14 @@ const Table = (props) => {
             {data.length > 0
                 ?
                 data.map((record) => {
-                    return <TableRecord deleteInvoice={props.deleteInvoice} key={record._id} record={record} />
+                    return <TableRecord 
+                    deleteInvoice={props.deleteInvoice} 
+                    updateInvoice={props.updateInvoice} 
+                    key={record._id} 
+                    record={record} />
                 })
                 :
-                <TableRecord/>
+                <TableRecord />
             }
         </div>
     )

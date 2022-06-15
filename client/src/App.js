@@ -18,10 +18,14 @@ function App() {
   }
 
   const deleteInvoice = (invoiceId) => {
+    setData(data.filter(record => record._id !== invoiceId));
+  }
+
+  const updateInvoice = (formData) => {
     const updatedData = [];
-    for(let record of data){
-      if (record._id === invoiceId){
-        continue;
+    for (let record of data) {
+      if (record._id === formData._id) {
+        updatedData.push(formData)
       } else {
         updatedData.push(record);
       }
@@ -33,7 +37,6 @@ function App() {
     fetch("/api/data")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setData(data.records)
       })
       .catch((err) =>
@@ -53,10 +56,10 @@ function App() {
         {isOpen
           &&
           <Modal closeModal={handleClose}>
-            <Form closeForm={handleClose} sendData={getData} />
+            <Form closeForm={handleClose} sendData={getData} isEditing={false} />
           </Modal>
         }
-        <Table data={data} deleteInvoice={deleteInvoice}/>
+        <Table data={data} deleteInvoice={deleteInvoice} updateInvoice={updateInvoice} />
       </main>
     </>
   );
