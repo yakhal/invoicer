@@ -1,9 +1,13 @@
 import styles from "./Table.module.css";
 import axios from "axios";
-import { MdDeleteOutline } from 'react-icons/md';
+import { MdDeleteOutline, MdEdit } from 'react-icons/md';
+import { useReducer } from "react";
+import Modal from "./Modal";
+import Form from "./Form";
 
 const TableRecord = (props) => {
     const record = props.record;
+    const [ editForm, toggleEditForm ] = useReducer((editForm) => (!editForm), false);
 
     const deleteRecord = async (invoiceId, syncFrontend) => {
         try {
@@ -19,6 +23,7 @@ const TableRecord = (props) => {
     }
 
     return (
+        <>
         <div className={styles['table-record']} >
             {
                 record
@@ -37,12 +42,26 @@ const TableRecord = (props) => {
                             >
                                 <MdDeleteOutline size="1.5em" />
                             </button>
+                            <button
+                                onClick={toggleEditForm}
+                                className={styles["action-button"]}
+                            >
+                                <MdEdit size="1.5em" />
+                            </button>
                         </div>
                     </>
                     :
                     <div>No Data Exist!</div>
             }
         </div >
+        {
+            editForm
+            &&
+            <Modal closeModal={toggleEditForm}>
+                <Form recievedData={props.record} closeForm={toggleEditForm} updateData={props.updateInvoice} isEditing={true} />
+            </Modal>
+        }
+        </>
     )
 }
 

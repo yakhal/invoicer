@@ -55,13 +55,13 @@ app.get("/api/data", (req, res) => {
 app.post("/api/send", (req, res) => {
     console.log(`Processing Invoice`);
     // Creating and Saving Invoice
-    const newInvoice = new InvoiceData(req.body.formData);
-    newInvoice
+    const invoice = new InvoiceData(req.body.formData);
+    invoice
         .save()
         .then(() => {
-            const msg = `Invoice with ID : ${newInvoice._id} created!`;
+            const msg = `Invoice with ID : ${invoice._id} created!`;
             console.log(`${msg}\n`)
-            res.json({newInvoice: newInvoice, message: msg});
+            res.json({ invoice: invoice, message: msg });
         })
         .catch((err) => console.log(err));
 })
@@ -73,7 +73,21 @@ app.get("/api/delete/:invoiceId", (req, res) => {
         .then(() => {
             const msg = `Invoice ID : ${invoiceId} deletion successful`;
             console.log(msg + "\n");
-            res.json({message: msg, deleted: true});
+            res.json({ message: msg, deleted: true });
+        })
+        .catch((err) => console.log(err));
+})
+
+// Edit Invoice
+app.post("/api/edit/", (req, res) => {
+    const invoiceId = req.body.formData._id;
+    const formData = req.body.formData;
+    console.log(`Updating invoice with ID : ${invoiceId}`);
+    InvoiceData.updateOne({ _id: invoiceId }, formData)
+        .then(() => {
+            const msg = `Invoice with ID : ${invoiceId} updated`;
+            console.log(msg + "\n");
+            res.json({ message: msg });
         })
         .catch((err) => console.log(err));
 })

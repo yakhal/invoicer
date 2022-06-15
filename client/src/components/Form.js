@@ -4,13 +4,16 @@ import axios from "axios";
 
 const Form = props => {
     // State Variables
-    const [inputData, setInputData] = useState({
+    const isEditing = props.isEditing;
+    const clearForm = {
         invoiceDate: "",
         unitPrice: "",
         quantity: "",
         totalAmount: "",
         status: "Pending"
-    });
+    }
+
+    const [inputData, setInputData] = useState(props.isEditing ? props.recievedData : clearForm);
 
     // utility Function
     const formatDate = (date) => {
@@ -45,12 +48,17 @@ const Form = props => {
         }
     }
 
-    const sendDataToServer = async (formData, syncFrontend) => {
+    const sendDataToServer = async (formData, url, syncFrontend) => {
         try {
-            let res = await axios.post("/api/send", { formData: formData });
+            let res = await axios.post(url, { formData: formData });
             if (res.status === 200) {
                 console.log(res.data.message);
-                syncFrontend(res.data.newInvoice);
+                if (isEditing) {
+                    syncFrontend(formData)
+                }
+                else {
+                    syncFrontend(res.data.invoice);
+                }
             }
         }
         catch (err) {
@@ -60,14 +68,12 @@ const Form = props => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        sendDataToServer(inputData, props.sendData)
-        setInputData({
-            invoiceDate: "",
-            unitPrice: "",
-            quantity: "",
-            totalAmount: "",
-            status: "Pending"
-        })
+        if (isEditing) {
+            sendDataToServer(inputData, "/api/edit/", props.updateData)
+        } else {
+            sendDataToServer(inputData, "/api/send/", props.sendData)
+        }
+        setInputData(clearForm)
         props.closeForm();
     }
 
